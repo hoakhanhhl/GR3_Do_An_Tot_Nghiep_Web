@@ -63,7 +63,7 @@ function App() {
     }
   }
   return <div> 
-    <button onClick={getBEData}>click bo may di con ga</button>
+    <button onClick={getBEData}>click me</button>
     <div style={{ width: 500, height: 500}}>
     {filteredData && accxData && 
        <Line data={data}
