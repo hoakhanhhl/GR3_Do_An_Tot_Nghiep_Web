@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-
+// // định nghĩa của mô hình dữ liệu bệnh nhân
 const patientDataScema = new mongoose.Schema({
     idDevice: String,
     idPatient: String,
@@ -15,3 +15,4 @@ const patientDataScema = new mongoose.Schema({
 })
 
 module.exports = mongoose.model('patientData', patientDataScema)
+// //tạo một đối tượng schema mới bằng cách truyền vào một đối tượng chứa mô tả cấu trúc dữ liệu của bệnh nhân
