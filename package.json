@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "kalman-filter": "^2.3.0",
+    "mongoose": "^8.2.3",
     "mqtt": "^5.4.0"
   }
 }
