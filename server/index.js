@@ -30,9 +30,6 @@ clientMqtt.on('connect', () => {
     })
 })
 
-async function InsertPatientData (data) {
-  await patientData.create(data)
-}
 
 //Thông báo kết nối lỗi mqtt
 clientMqtt.on('connect', () => {
@@ -42,6 +39,30 @@ clientMqtt.on('connect', () => {
         }
     })
 })
+
+// import patientData.js - định nghĩa dữ liệu bệnh nhân để chèn dữ liệu
+const patientData = require('./models/patientData')
+
+// Thiết lập kết nối đến cơ sở dữ liệu MongoDB dùng Mongoose và URL
+const mongoose = require('mongoose')
+const URL = `mongodb+srv://hoaltk:12345678%21
+%40%23@atlascluster.lh5zibj.mongodb.net/?retryWrites=true&w=majority&appName=AtlasCluster`
+// Tạo một hàm async
+async function InsertPatientData (data) {
+  await patientData.create(data)
+}
+// Thông báo "connected" thành công. Nếu có lỗi thông báo lỗi và thoát quá trình chạy (exit process).
+const connectDB = async () => {
+  try {
+    await mongoose.connect(URL).then(()=>console.log("connected")
+// // mongoose.connect() kết nối đến cơ sở dữ liệu MongoDB, await để đợi cho đến khi kết nối hoàn thành
+    )  
+  } catch (error) {
+    console.log(error)
+    process.exit(1)
+  }
+}
+connectDB()
 
 // Listen message MQTT
 clientMqtt.on('message', (topic, payload) => {
@@ -80,26 +101,6 @@ clientMqtt.on('message', (topic, payload) => {
 // khi dữ liệu được chèn thành công thông báo "create data"    
   }
 })
-
-// import patientData.js - định nghĩa dữ liệu bệnh nhân để chèn dữ liệu
-const patientData = require('./models/patientData')
-
-// // Thiết lập kết nối đến cơ sở dữ liệu MongoDB dùng Mongoose và URL
-const mongoose = require('mongoose')
-const URL = `mongodb+srv://hoaltk:12345678%21
-%40%23@atlascluster.lh5zibj.mongodb.net/?retryWrites=true&w=majority&appName=AtlasCluster`
-// // Thông báo "connected" thành công. Nếu có lỗi thông báo lỗi và thoát quá trình chạy (exit process).
-const connectDB = async () => {
-  try {
-    await mongoose.connect(URL).then(()=>console.log("connected")
-// // mongoose.connect() kết nối đến cơ sở dữ liệu MongoDB, await để đợi cho đến khi kết nối hoàn thành
-    )  
-  } catch (error) {
-    console.log(error)
-    process.exit(1)
-  }
-}
-connectDB()
 
 app.listen(port,async () => {
   console.log(`Example app listening on port ${port}`)
