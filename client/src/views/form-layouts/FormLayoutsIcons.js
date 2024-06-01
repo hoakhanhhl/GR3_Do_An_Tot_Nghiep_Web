@@ -14,9 +14,32 @@ import MessageOutline from 'mdi-material-ui/MessageOutline'
 import { Box, Typography } from '@mui/material'
 import { Calendar } from 'mdi-material-ui'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { forwardRef } from 'react'
+import { useState } from 'react'
+import axios from 'axios'
+import dayjs from 'dayjs'
 
 const FormLayoutsIcons = () => {
+  const [data, setData] = useState({
+    name: '',
+    age: 1,
+    id: '',
+    recentExamDate: new Date(),
+    nextExamDate: new Date(),
+    deviceId: '',
+    description: '',
+  });
+
+  const handleChangeFormData = (e) => {
+    setData({...data, [e.target.name]: e.target.value})
+  }
+
+  const onSubmitForm = async () => {
+    console.log(data)
+    await axios.post(`http://localhost:5000/patient`, { data }).then((res) => {
+      console.log(res.data)
+    })
+  }
+
   return (
     <Card>
       <CardHeader title='Thêm thông tin bệnh nhân' titleTypographyProps={{ variant: 'h6' }} />
@@ -26,6 +49,9 @@ const FormLayoutsIcons = () => {
             <Grid item xs={12}>
               <TextField
                 fullWidth
+                name='name'
+                onChange={handleChangeFormData}
+                value={data.name}
                 label='Tên bệnh nhân'
                 placeholder='Nhập tên bệnh nhân'
                 InputProps={{
@@ -39,7 +65,9 @@ const FormLayoutsIcons = () => {
             </Grid>
             <Grid item xs={12}>
               <DatePicker
-                // selected={date}
+                name='recentExamDate'
+                onChange={handleChangeFormData}
+                value={dayjs(data.recentExamDate)}
                 sx={{ width: "46%", marginRight: 5 }}
                 showYearDropdown
                 showMonthDropdown
@@ -56,10 +84,11 @@ const FormLayoutsIcons = () => {
                     )
                   }}
                 />}
-                // onChange={date => setDate(date)}
               />
              <DatePicker
-                // selected={date}
+                name='nextExamDate'
+                onChange={handleChangeFormData}
+                value={dayjs(data.nextExamDate)}
                 sx={{ width: "46%", marginLeft: 5 }}
                 showYearDropdown
                 showMonthDropdown
@@ -76,13 +105,15 @@ const FormLayoutsIcons = () => {
                     )
                   }}
                 />}
-                // onChange={date => setDate(date)}
               />
             </Grid>
             <Grid item xs={4}>
               <TextField
                 fullWidth
                 type='number'
+                name='age'
+                onChange={handleChangeFormData}
+                value={data.age}
                 label='Tuổi'
                 placeholder=''
                 helperText=''
@@ -94,6 +125,9 @@ const FormLayoutsIcons = () => {
                 multiline
                 minRows={3}
                 label='Mô tả'
+                name='description'
+                onChange={handleChangeFormData}
+                value={data.description}
                 placeholder='Thêm mô tả'
                 sx={{ '& .MuiOutlinedInput-root': { alignItems: 'baseline' } }}
                 InputProps={{
@@ -106,7 +140,7 @@ const FormLayoutsIcons = () => {
               />
             </Grid>
             <Grid item xs={12}>
-              <Button type='submit' variant='contained' size='large'>
+              <Button type='submit' variant='contained' size='large' onClick={onSubmitForm}>
                 Tạo hồ sơ
               </Button>
             </Grid>

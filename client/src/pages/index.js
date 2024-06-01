@@ -28,6 +28,8 @@ import FormLayoutsIcons from 'src/views/form-layouts/FormLayoutsIcons'
 
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import axios from 'axios'
+
 {/* <TableCell>Id</TableCell>
 <TableCell>Tên bệnh nhân</TableCell>
 <TableCell>Ngày khám gần nhất</TableCell>
@@ -38,7 +40,6 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 const rows = [
   {
     age: 27,
-    status: 'current',
     recentExamDate: '09/27/2018',
     nextExamDate: '09/27/2018',
     name: 'Sally Quinn',
@@ -48,7 +49,6 @@ const rows = [
   },
   {
     age: 27,
-    status: 'current',
     recentExamDate: '09/27/2018',
     nextExamDate: '09/27/2018',
     name: 'Sally Quinn',
@@ -58,7 +58,6 @@ const rows = [
   },
   {
     age: 27,
-    status: 'current',
     recentExamDate: '09/27/2018',
     nextExamDate: '09/27/2018',
     name: 'Sally Quinn',
@@ -70,6 +69,16 @@ const rows = [
 
 const Dashboard = () => {
   const [openDialog, setOpenDialog] = useState(false)
+  const [patientList, setPatientList] = useState(null)
+  useEffect(()=> {
+    async function call() {
+    await axios.get(`http://localhost:5000/patient`).then((res) => {
+      console.log(res.data)
+      setPatientList(res.data)
+    })
+    }
+    call()
+  }, [])
 
   const handleOpenDialog = () => {
     setOpenDialog(true)

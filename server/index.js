@@ -1,6 +1,15 @@
 const express = require('express')
-const app = express()
+const mongoose = require('mongoose')
+const cors = require('cors')
 const port = 5000
+const app = express()
+
+app.use(cors())
+const bodyParser = require('body-parser');
+app.use(bodyParser.json()); 
+// app.use(express.json())
+// import patientData.js - định nghĩa dữ liệu bệnh nhân để chèn dữ liệu
+const patientData = require('./models/patientData')
 
 //Thông tin thuật toán kalman
 const KalmanFilter = require('kalmanjs');
@@ -8,6 +17,8 @@ const kFilter = new KalmanFilter()
 
 // Thông tin kết nối mqtt
 const mqtt = require('mqtt')
+const patient = require('./models/patient')
+
 const protocol = 'mqtt'
 const host = 'sinno.soict.ai'
 const mqttPort = '1883'
@@ -33,18 +44,16 @@ clientMqtt.on('connect', () => {
 
 //Thông báo kết nối lỗi mqtt
 clientMqtt.on('connect', () => {
-    clientMqtt.publish(topic, 'nodejs mqtt test', { qos: 0, retain: false }, (error) => {
+    clientMqtt.publish(topic, 'nodejs mqtt error', { qos: 0, retain: false }, (error) => {
         if (error) {
             console.error(error)
         }
     })
 })
 
-// import patientData.js - định nghĩa dữ liệu bệnh nhân để chèn dữ liệu
-const patientData = require('./models/patientData')
+
 
 // Thiết lập kết nối đến cơ sở dữ liệu MongoDB dùng Mongoose và URL
-const mongoose = require('mongoose')
 const URL = `mongodb+srv://hoaltk:12345678%21
 %40%23@atlascluster.lh5zibj.mongodb.net/?retryWrites=true&w=majority&appName=AtlasCluster`
 // Tạo một hàm async
@@ -106,14 +115,86 @@ app.listen(port,async () => {
   console.log(`Example app listening on port ${port}`)
 })
 
-// // Truy vấn dữ liệu bệnh nhân từ cơ sở dữ liệu dựa trên ID bệnh nhân được cung cấp
-// async function GetPatientDataByPatientId (id) {
-//   await patientData.find({idPatient: id}).then((data) => console.log(data))
-// } 
-
 // app.get('/', (req, res) => {
 //     res.send("hello world")
 // })
-// // app.get('/data', (req, res) => {
-// //     res.send({ filteredData: filteredData, listAccx: listAccx })
-// // })
+// app.get('/getpPatientData', (req, res) => {
+//     patientData.find()
+//     .then(patientData => res.json(patientData))
+//     .catch(err => res.json(err))
+// })
+
+// patient service
+async function getPatientList(page = 1, perPage = 10) {
+  // Extract page and perPage from request parameters (assuming query string)
+
+  try {
+    // Calculate skip value for pagination
+    const skip = (page - 1) * perPage;
+
+    // Get total number of documents (optional for pagination metadata)
+    const totalDocuments = await patient.countDocuments();
+
+    // Find patients with limit and skip
+    const patients = await patient.find({}, null, { skip, limit: perPage });
+
+    // Respond with patients and total documents (if applicable)
+    return { patients, totalDocuments }; // Or adjust response structure as needed
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+}
+
+async function createPatient(data){
+    try {
+      console.log(data.data)
+        const createData = await patient.create(data.data)
+
+       return createData._id;
+    }
+    catch(error){
+        console.error(error);
+        return null;
+    }
+}
+
+// crud patient
+app.post('/patient', async (req, res) => {
+  try {
+    const patient = req.body; // Assuming data is sent in the request body
+    // Validate patient data (optional but recommended)
+
+    const createdPatientId = await createPatient(patient);
+
+    if (createdPatientId) {
+      res.status(201).json({ message: 'Patient created successfully!', id: createdPatientId });
+    } else {
+      res.status(500).json({ message: 'Error creating patient' });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+app.get('/patient', async (req, res) => {
+  try {
+    const body = req.body; // Assuming data is sent in the request body
+    const page = patient.page;
+    const perPage = patient.perPage;
+    // Validate patient data (optional but recommended)
+
+    const {patients, totalDocuments} = await getPatientList(page, perPage)
+
+    if (createdPatientId) {
+      res.status(201).json({ total: totalDocuments, data: patientList });
+    } else {
+      res.status(500).json({ message: 'Error fetching patient' });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
