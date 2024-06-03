@@ -3,15 +3,17 @@ const mongoose = require('mongoose')
 const patientDataScema = new mongoose.Schema({
     idDevice: String,
     idPatient: String,
+    temp: Number,
     accX: Number,
     accY: Number,
     accZ: Number,
     gyroX: Number,
     gyroY: Number,
     gyroZ: Number,
-    angX: Number,
-    angY: Number, 
-    angZ: Number,
+    irValue: Number, 
+    redValue: Number,
+    spO2: Number,
+    heartRate: Number,
 })
 
 module.exports = mongoose.model('patientData', patientDataScema)
