@@ -9,14 +9,32 @@ import TableBody from '@mui/material/TableBody'
 import TableCell from '@mui/material/TableCell'
 import Typography from '@mui/material/Typography'
 import TableContainer from '@mui/material/TableContainer'
+import { Dialog } from '@mui/material'
+import { useState } from 'react'
+import PatientDetailPopUp from './PatientDetailPopUp'
 
-const statusObj = {
+export const statusObj = {
+  admitted: { color: 'warning', label: "đã nhập viện" },
   onFollow: { color: 'info', label: "đang theo dõi" },
   discharge: { color: 'success', label: "đã xuất viện" }
 }
 
-const DashboardTable = ({rows}) => {
+const DashboardTable = ({rows, refetch, setRefetch}) => {
+
+  const [openDialog, setOpenDialog] = useState(false)
+  const [patientDetail, setPatientDetail] = useState(null)
+
+  const handleOpenDialog = (detail) => {
+    setPatientDetail(detail)
+    setOpenDialog(true)
+  }
+
+  const handleCloseDialog = () => {
+    setOpenDialog(false)
+  }
+
   return (
+    <>
     <Card>
       <TableContainer>
         <Table sx={{ minWidth: 800 }} aria-label='table in dashboard'>
@@ -33,22 +51,22 @@ const DashboardTable = ({rows}) => {
           </TableHead>
           <TableBody>
             {rows.map(row => (
-              <TableRow hover key={row.Id} sx={{ '&:last-of-type td, &:last-of-type th': { border: 0 } }}>
+              <TableRow hover key={row._id} sx={{ '&:last-of-type td, &:last-of-type th': { border: 0 }, cursor: "pointer" }} onClick={() => handleOpenDialog(row)}>
                 <TableCell sx={{ py: theme => `${theme.spacing(0.5)} !important` }}>
                   <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-                    <Typography sx={{ fontWeight: 500, fontSize: '0.875rem !important' }}>{row.id}</Typography>
-                    <Typography variant='caption'>{row.designation}</Typography>
+                    <Typography sx={{ fontWeight: 500, fontSize: '0.875rem !important'}}>{row._id}</Typography>
+                    <Typography variant='caption'>{row?.designation}</Typography>
                   </Box>
                 </TableCell>
-                <TableCell>{row.name}</TableCell>
-                <TableCell>{row.recentExamDate}</TableCell>
-                <TableCell>{row.nextExamDate}</TableCell>
-                <TableCell>{row.age}</TableCell>
-                <TableCell>{row.deviceId}</TableCell>
+                <TableCell>{row?.name}</TableCell>
+                <TableCell>{row?.recentExamDate}</TableCell>
+                <TableCell>{row?.nextExamDate}</TableCell>
+                <TableCell>{row?.age}</TableCell>
+                <TableCell>{row?.deviceId}</TableCell>
                 <TableCell>
                   <Chip
-                    label={statusObj[row.status].label}
-                    color={statusObj[row.status].color}
+                    label={statusObj[row?.status]?.label}
+                    color={statusObj[row?.status]?.color}
                     sx={{
                       height: 24,
                       fontSize: '0.75rem',
@@ -63,6 +81,10 @@ const DashboardTable = ({rows}) => {
         </Table>
       </TableContainer>
     </Card>
+    <Dialog onClose={handleCloseDialog} open={openDialog}>
+      <PatientDetailPopUp detail={patientDetail} refetch={refetch} onCloseDialog={handleCloseDialog} setRefetch={setRefetch}/>
+    </Dialog>
+    </>
   )
 }
 

@@ -131,7 +131,7 @@ app.listen(port,async () => {
 // })
 
 // patient service
-async function getPatientList(page = 1, perPage = 10) {
+async function getPatientList(page = 1, perPage = 15) {
   // Extract page and perPage from request parameters (assuming query string)
 
   try {
@@ -142,7 +142,7 @@ async function getPatientList(page = 1, perPage = 10) {
     const totalDocuments = await patient.countDocuments();
 
     // Find patients with limit and skip
-    const patients = await patient.find({}, null, { skip, limit: perPage });
+    const patients = await patient.find({}, null, { skip, limit: perPage, sort: { recentExamDate: -1 } });
 
     // Respond with patients and total documents (if applicable)
     return { patients, totalDocuments }; // Or adjust response structure as needed
@@ -165,6 +165,18 @@ async function createPatient(data){
     }
 }
 
+async function updatePatient(data){
+  try {
+    const update = data.data
+      const updateData = await patient.updateOne({_id: update._id}, update).catch((err) => {throw(err)})
+     return updateData;
+  }
+  catch(error){
+      console.error(error);
+      return null;
+  }
+}
+
 // crud patient
 app.post('/patient', async (req, res) => {
   try {
@@ -184,6 +196,24 @@ app.post('/patient', async (req, res) => {
   }
 });
 
+app.put('/patient', async (req, res) => {
+  try {
+    const patient = req.body; // Assuming data is sent in the request body
+    // Validate patient data (optional but recommended)
+
+    const update = await updatePatient(patient);
+
+    if (update) {
+      res.status(200).json({ message: 'Patient updated successfully!'});
+    } else {
+      res.status(500).json({ message: 'Error updating patient' });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
 app.get('/patient', async (req, res) => {
   try {
     const body = req.body; // Assuming data is sent in the request body
@@ -193,8 +223,8 @@ app.get('/patient', async (req, res) => {
 
     const {patients, totalDocuments} = await getPatientList(page, perPage)
 
-    if (createdPatientId) {
-      res.status(201).json({ total: totalDocuments, data: patientList });
+    if (patients) {
+      res.status(201).json({ total: totalDocuments, data: patients });
     } else {
       res.status(500).json({ message: 'Error fetching patient' });
     }

@@ -20,9 +20,6 @@ const FormLayouts = () => {
         <Grid item xs={12} md={6}>
           <FormLayoutsBasic />
         </Grid>
-        <Grid item xs={12} md={6}>
-          <FormLayoutsIcons />
-        </Grid>
         <Grid item xs={12}>
           <FormLayoutsSeparator />
         </Grid>

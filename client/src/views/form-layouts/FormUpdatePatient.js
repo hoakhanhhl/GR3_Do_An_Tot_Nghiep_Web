@@ -19,18 +19,8 @@ import axios from 'axios'
 import dayjs from 'dayjs'
 import toast from 'react-hot-toast'
 
-const FormLayoutsIcons = props => {
-  const [data, setData] = useState({
-    name: '',
-    age: 1,
-    id: '',
-    recentExamDate: new Date(),
-    nextExamDate: new Date(),
-    deviceId: '',
-    description: '',
-    status: 'onFollow',
-    gender: 'male'
-  })
+const FormUpdatePatient = (props) => {
+  const [data, setData] = useState(props.patient)
 
   const handleChangeFormData = e => {
     setData({ ...data, [e.target.name]: e.target.value })
@@ -42,8 +32,8 @@ const FormLayoutsIcons = props => {
 
   const onSubmitForm = async () => {
     console.log(data)
-    await axios.post(`http://localhost:5000/patient`, { data }).then(res => {
-      toast.success('Thêm bệnh nhân thành công!')
+    await axios.put(`http://localhost:5000/patient`, { data }).then(res => {
+      toast.success('Update bệnh nhân thành công!')
       props.setRefetch(!props.refetch)
       props.onCloseDialog()
     })
@@ -51,7 +41,7 @@ const FormLayoutsIcons = props => {
 
   return (
     <Card>
-      <CardHeader title='Thêm thông tin bệnh nhân' titleTypographyProps={{ variant: 'h6' }} />
+      <CardHeader title='Update thông tin bệnh nhân' titleTypographyProps={{ variant: 'h6' }} />
       <CardContent>
         <form onSubmit={e => e.preventDefault()}>
           <Grid container spacing={5}>
@@ -120,6 +110,24 @@ const FormLayoutsIcons = props => {
                 }
               />
             </Grid>
+            <Grid item xs={12}>
+              <TextField
+                fullWidth
+                name='deviceId'
+                onChange={handleChangeFormData}
+                value={data.name}
+                label='id thiết bị'
+                placeholder='Nhập id thiết bị'
+
+                // InputProps={{
+                //   startAdornment: (
+                //     <InputAdornment position='start'>
+                //       <AccountOutline />
+                //     </InputAdornment>
+                //   )
+                // }}
+              />
+            </Grid>
             <Grid item xs={4}>
               <TextField
                 fullWidth
@@ -167,10 +175,26 @@ const FormLayoutsIcons = props => {
                 }}
               />
             </Grid>
-            <Grid item xs={12}>
+            <Grid item xs={4}>
+              <Select
+                fullWidth
+                name='status'
+                onChange={handleChangeFormData}
+                value={data.status}
+                label='Trạng thái'
+                placeholder='Trạng thái'
+                helperText=''
+              >
+                <MenuItem value={'admitted'}>đã nhập viện</MenuItem>
+                <MenuItem value={'onFollow'}>đang theo dõi</MenuItem>
+                <MenuItem value={'discharge'}>đã xuất viện</MenuItem>
+              </Select>
+            </Grid>
+            <Grid item xs={12} display="flex" alignItems="center" justifyContent="space-between">
               <Button type='submit' variant='contained' size='large' onClick={onSubmitForm}>
-                Tạo hồ sơ
+                Update hồ sơ
               </Button>
+              <Button variant="outlined" onClick={() => props.setOnOpenUpdate(false)}>Return</Button>
             </Grid>
           </Grid>
         </form>
@@ -179,4 +203,4 @@ const FormLayoutsIcons = props => {
   )
 }
 
-export default FormLayoutsIcons
+export default FormUpdatePatient

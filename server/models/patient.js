@@ -7,6 +7,8 @@ const patientScema = new mongoose.Schema({
     nextExamDate: Date,
     deviceId: String,
     description: String,
+    status: String,
+    gender: String,
 })
 module.exports = mongoose.model('patients', patientScema)
 // //tạo một đối tượng schema mới bằng cách truyền vào một đối tượng chứa mô tả cấu trúc dữ liệu của bệnh nhân
