@@ -14,7 +14,8 @@ const patientDataScema = new mongoose.Schema({
     redValue: Number,
     spO2: Number,
     heartRate: Number,
+    uploadTime: Date,
 })
 
-module.exports = mongoose.model('patientData', patientDataScema)
+module.exports = mongoose.model('patientdatas', patientDataScema)
 // //tạo một đối tượng schema mới bằng cách truyền vào một đối tượng chứa mô tả cấu trúc dữ liệu của bệnh nhân

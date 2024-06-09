@@ -19,6 +19,7 @@ export const statusObj = {
   discharge: { color: 'success', label: "đã xuất viện" }
 }
 
+
 const DashboardTable = ({rows, refetch, setRefetch}) => {
 
   const [openDialog, setOpenDialog] = useState(false)
@@ -81,7 +82,9 @@ const DashboardTable = ({rows, refetch, setRefetch}) => {
         </Table>
       </TableContainer>
     </Card>
-    <Dialog onClose={handleCloseDialog} open={openDialog}>
+    <Dialog onClose={handleCloseDialog} open={openDialog} sx={{ ".css-12tnra4-MuiPaper-root-MuiDialog-paper": {
+      maxWidth: "800px !important"
+    } }}>
       <PatientDetailPopUp detail={patientDetail} refetch={refetch} onCloseDialog={handleCloseDialog} setRefetch={setRefetch}/>
     </Dialog>
     </>

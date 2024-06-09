@@ -115,7 +115,7 @@ const FormUpdatePatient = (props) => {
                 fullWidth
                 name='deviceId'
                 onChange={handleChangeFormData}
-                value={data.name}
+                value={data.deviceId}
                 label='id thiết bị'
                 placeholder='Nhập id thiết bị'
 

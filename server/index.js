@@ -111,6 +111,7 @@ clientMqtt.on('message', (topic, payload) => {
       redValue: redValue,
       spO2: spO2,
       heartRate: heartRate,
+      uploadTime: new Date()
       }).then((res) => console.log("create data \n"))
   // khi dữ liệu được chèn thành công thông báo "create data"    
     }
@@ -177,6 +178,19 @@ async function updatePatient(data){
   }
 }
 
+async function getPatientData(id, startTime, endTime){
+  console.log(id)
+  try {
+      dataList = await patientData.find({idPatient: String(id), uploadTime: { $gt: startTime, $lt: endTime }}, null, {}).catch((err) => {throw(err)})
+     return dataList;
+  }
+  catch(error){
+      console.error(error);
+      return null;
+  }
+}
+
+
 // crud patient
 app.post('/patient', async (req, res) => {
   try {
@@ -232,5 +246,37 @@ app.get('/patient', async (req, res) => {
     console.error(error);
     res.status(500).json({ message: 'Internal server error' });
   }
+});
+
+app.get('/patientData/:id', async (req, res) => {
+  const { id } = req.params;
+const { startTime, endTime } = req.query;
+
+try {
+  // Validate and parse startTime and endTime
+  const currentDate = new Date();
+  // Giảm đi một tuần
+  const oneWeekAgo = new Date(currentDate);
+  oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
+
+  const parsedStartTime = startTime ? new Date(new Date(startTime).setHours(new Date(startTime).getHours() - 7)) : oneWeekAgo;
+  const parsedEndTime = endTime ? new Date(new Date(endTime).setHours(new Date(endTime).getHours() - 7)) : currentDate;
+
+
+  if (isNaN(parsedStartTime) || isNaN(parsedEndTime)) {
+    return res.status(400).json({ message: 'Invalid date format' });
+  }
+
+  const data = await getPatientData(id, parsedStartTime, parsedEndTime);
+
+  if (data) {
+    res.status(200).json({ total: data.length, data: data });
+  } else {
+    res.status(404).json({ message: 'No data found' });
+  }
+} catch (error) {
+  console.error(error);
+  res.status(500).json({ message: 'Internal server error' });
+}
 });
 
