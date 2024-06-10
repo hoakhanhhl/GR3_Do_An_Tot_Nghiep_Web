@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 // // định nghĩa của mô hình dữ liệu bệnh nhân
 const patientScema = new mongoose.Schema({
+    id: String,
     name: String,
     age: Number,
     recentExamDate: Date,

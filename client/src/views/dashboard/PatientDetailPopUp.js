@@ -34,7 +34,7 @@ export default function PatientDetailPopUp(props) {
 
   // fetch patient data for charts
 
-  const patientId = '666345f7a717a5c04e8d7e8'
+  const patientId = patient.id && patient.id.length > 0 ? patient.id : patient._id;
   useEffect(() => {
     import('@mui/x-charts').then(module => {
       setLineChart(() => module.LineChart)
@@ -78,6 +78,7 @@ export default function PatientDetailPopUp(props) {
             <Box>
               <Typography variant='h3'>{patient?.name}</Typography>
               <Typography fontSize={20}>{/* <b>Id:</b> {patient?._id} */}</Typography>
+              <Typography fontSize={20}><b>Id:</b> {patient?.id}</Typography>
             </Box>
           </Box>
           <br />

@@ -3,6 +3,7 @@ const mongoose = require('mongoose')
 const cors = require('cors')
 const port = 5000
 const app = express()
+const crypto = require('crypto');
 
 app.use(cors())
 const bodyParser = require('body-parser');
@@ -153,11 +154,20 @@ async function getPatientList(page = 1, perPage = 15) {
   }
 }
 
+function generateRandomString(length) {
+  return crypto.randomBytes(length)
+               .toString('base64')
+               .slice(0, length)
+               .replace(/[^a-zA-Z0-9]/g, ''); // Loại bỏ ký tự không mong muốn
+}
+
+
 async function createPatient(data){
     try {
       console.log(data.data)
-        const createData = await patient.create(data.data)
-
+      let newPatient = data.data;
+      newPatient.id = generateRandomString(10)
+        const createData = await patient.create(newPatient)
        return createData._id;
     }
     catch(error){
@@ -247,6 +257,15 @@ app.get('/patient', async (req, res) => {
     res.status(500).json({ message: 'Internal server error' });
   }
 });
+function adjustTime(date){
+  if (date.getHours() < 7) {
+    date.setDate(date.getDate() - 1);
+    date.setHours(date.getHours() + 17); // 24 - 7 = 17
+  } else {
+    date.setHours(date.getHours() - 7);
+  }
+  return date;
+}
 
 app.get('/patientData/:id', async (req, res) => {
   const { id } = req.params;
@@ -259,10 +278,10 @@ try {
   const oneWeekAgo = new Date(currentDate);
   oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
 
-  const parsedStartTime = startTime ? new Date(new Date(startTime).setHours(new Date(startTime).getHours() - 7)) : oneWeekAgo;
-  const parsedEndTime = endTime ? new Date(new Date(endTime).setHours(new Date(endTime).getHours() - 7)) : currentDate;
+  const parsedStartTime = startTime ? adjustTime(new Date(startTime)) : oneWeekAgo;
+  const parsedEndTime = endTime ? adjustTime(new Date(endTime)) : currentDate;
 
-
+   console.log(parsedStartTime, parsedEndTime)
   if (isNaN(parsedStartTime) || isNaN(parsedEndTime)) {
     return res.status(400).json({ message: 'Invalid date format' });
   }
@@ -279,4 +298,3 @@ try {
   res.status(500).json({ message: 'Internal server error' });
 }
 });
-
