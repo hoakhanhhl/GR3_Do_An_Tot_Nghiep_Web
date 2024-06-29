@@ -96,7 +96,7 @@ export default function PatientDetailPopUp(props) {
               <b>Giới tính:</b> {convertGender(patient?.gender)}
             </Typography>
             <Typography fontSize={20} paddingY={0.5}>
-              <b>Id thiết bị:</b> {patient?.deviceId ? patient?.deviceId : 'chưa cập nhật'}
+              <b>Id thiết bị:</b> {listDataDetail.map(data => data.idDevice)[0]}
             </Typography>
             <Typography fontSize={20} paddingY={0.5}>
               <b>Ngày khám bệnh gần nhất:</b> {moment(patient?.recentExamDate).format('MMMM Do YYYY, h:mm:ss a')}
