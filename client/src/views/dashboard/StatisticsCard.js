@@ -17,27 +17,27 @@ import AccountOutline from 'mdi-material-ui/AccountOutline'
 
 const salesData = [
   {
-    stats: '245k',
-    title: 'Sales',
+    stats: '245',
+    title: 'Bệnh nhân',
     color: 'primary',
     icon: <TrendingUp sx={{ fontSize: '1.75rem' }} />
   },
   {
-    stats: '12.5k',
-    title: 'Customers',
+    stats: '0',
+    title: 'Vật tư',
     color: 'success',
     icon: <AccountOutline sx={{ fontSize: '1.75rem' }} />
   },
   {
-    stats: '1.54k',
+    stats: '10',
     color: 'warning',
-    title: 'Products',
+    title: 'Đơn thuốc',
     icon: <CellphoneLink sx={{ fontSize: '1.75rem' }} />
   },
   {
-    stats: '$88k',
+    stats: '200',
     color: 'info',
-    title: 'Revenue',
+    title: 'Tệp tin',
     icon: <CurrencyUsd sx={{ fontSize: '1.75rem' }} />
   }
 ]
@@ -72,7 +72,7 @@ const StatisticsCard = () => {
   return (
     <Card>
       <CardHeader
-        title='Statistics Card'
+        title='Thống kê'
         action={
           <IconButton size='small' aria-label='settings' className='card-more-options' sx={{ color: 'text.secondary' }}>
             <DotsVertical />
@@ -81,9 +81,9 @@ const StatisticsCard = () => {
         subheader={
           <Typography variant='body2'>
             <Box component='span' sx={{ fontWeight: 600, color: 'text.primary' }}>
-              Total 48.5% growth
+              Mức tăng bệnh nhân tái khám 48.5% 
             </Box>{' '}
-            😎 this month
+            😎 tháng này
           </Typography>
         }
         titleTypographyProps={{

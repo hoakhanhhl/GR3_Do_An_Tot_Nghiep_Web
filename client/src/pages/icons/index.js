@@ -136,10 +136,10 @@ const Icons = () => {
       <Grid item xs={12}>
         <Typography variant='h5'>
           <Link href='https://materialdesignicons.com/' target='_blank'>
-            Material Design Icons
+            Trang Website quản lý bệnh nhân Parkinson
           </Link>
         </Typography>
-        <Typography variant='body2'>Material Design Icons from the Community</Typography>
+        <Typography variant='body2'>Trang Website quản lý bệnh nhân Parkinson</Typography>
       </Grid>
       <Grid item xs={12}>
         <Grid container spacing={6}>
@@ -154,7 +154,7 @@ const Icons = () => {
           variant='contained'
           href='https://materialdesignicons.com/'
         >
-          View All Material Design Icons
+          Trang Website quản lý bệnh nhân Parkinson
         </Button>
       </Grid>
     </Grid>

@@ -207,7 +207,7 @@ export default function PatientDetailPopUp(props) {
                 strokeWidth: 0.5
               }
             }}
-            width={700}
+            width={1000}
             height={500}
           />
           <LineChart
@@ -238,7 +238,7 @@ export default function PatientDetailPopUp(props) {
                 strokeWidth: 0.5
               }
             }}
-            width={700}
+            width={1000}
             height={500}
           />
           <LineChart
@@ -269,7 +269,7 @@ export default function PatientDetailPopUp(props) {
                 strokeWidth: 0.5
               }
             }}
-            width={700}
+            width={1000}
             height={500}
           />
           <LineChart
@@ -301,7 +301,7 @@ export default function PatientDetailPopUp(props) {
                 strokeWidth: 0.5
               }
             }}
-            width={700}
+            width={1000}
             height={500}
           />
           <LineChart
@@ -333,7 +333,7 @@ export default function PatientDetailPopUp(props) {
                 strokeWidth: 0.5
               }
             }}
-            width={700}
+            width={1000}
             height={500}
           />
           <LineChart
@@ -365,7 +365,7 @@ export default function PatientDetailPopUp(props) {
                 strokeWidth: 0.5
               }
             }}
-            width={700}
+            width={1000}
             height={500}
           />
           <LineChart
@@ -397,7 +397,7 @@ export default function PatientDetailPopUp(props) {
                 strokeWidth: 0.5
               }
             }}
-            width={700}
+            width={1000}
             height={500}
           />
           <LineChart
@@ -429,7 +429,7 @@ export default function PatientDetailPopUp(props) {
                 strokeWidth: 0.5
               }
             }}
-            width={700}
+            width={1000}
             height={500}
           />
           <LineChart
@@ -461,7 +461,7 @@ export default function PatientDetailPopUp(props) {
                 strokeWidth: 0.5
               }
             }}
-            width={700}
+            width={1000}
             height={500}
           />
           <LineChart
@@ -493,7 +493,7 @@ export default function PatientDetailPopUp(props) {
                 strokeWidth: 0.1
               }
             }}
-            width={700}
+            width={1000}
             height={500}
           />
           <LineChart
@@ -525,7 +525,7 @@ export default function PatientDetailPopUp(props) {
                 strokeWidth: 0.5
               }
             }}
-            width={700}
+            width={1000}
             height={500}
           />
         </>

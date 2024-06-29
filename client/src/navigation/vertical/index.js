@@ -18,21 +18,21 @@ const navigation = () => {
       path: '/'
     },
     {
-      title: 'Account Settings',
+      title: 'Cài đặt',
       icon: AccountCogOutline,
       path: '/account-settings'
     },
     {
-      sectionTitle: 'Pages'
+      sectionTitle: 'Trang'
     },
     {
-      title: 'Login',
+      title: 'Đăng nhập',
       icon: Login,
       path: '/pages/login',
       openInNewTab: true
     },
     {
-      title: 'Register',
+      title: 'Đăng ký',
       icon: AccountPlusOutline,
       path: '/pages/register',
       openInNewTab: true
@@ -44,31 +44,31 @@ const navigation = () => {
       openInNewTab: true
     },
     {
-      sectionTitle: 'User Interface'
+      sectionTitle: 'Bác sĩ'
     },
     {
-      title: 'Typography',
+      title: 'Bệnh nhân',
       icon: FormatLetterCase,
       path: '/typography'
     },
     {
-      title: 'Icons',
+      title: 'Thuốc',
       path: '/icons',
       icon: GoogleCirclesExtended
     },
     {
-      title: 'Cards',
+      title: 'Vật tư',
       icon: CreditCardOutline,
       path: '/cards'
     },
     {
-      title: 'Tables',
+      title: 'Thống kê',
       icon: Table,
       path: '/tables'
     },
     {
       icon: CubeOutline,
-      title: 'Form Layouts',
+      title: 'Danh mục',
       path: '/form-layouts'
     }
   ]

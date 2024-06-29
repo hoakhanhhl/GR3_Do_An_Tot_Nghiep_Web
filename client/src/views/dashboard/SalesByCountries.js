@@ -14,51 +14,51 @@ import DotsVertical from 'mdi-material-ui/DotsVertical'
 
 const data = [
   {
-    sales: '894k',
+    sales: '9',
     trendDir: 'up',
-    subtitle: 'USA',
-    title: '$8,656k',
-    avatarText: 'US',
+    subtitle: 'MRI, CT, X-quang và PET',
+    title: 'Chẩn đoán hình ảnh',
+    avatarText: '1',
     trendNumber: '25.8%',
     avatarColor: 'success',
     trend: <ChevronUp sx={{ color: 'success.main', fontWeight: 600 }} />
   },
   {
-    sales: '645k',
-    subtitle: 'UK',
+    sales: '24',
+    subtitle: 'Máu, dịch não tuỷ',
     trendDir: 'down',
-    title: '$2,415k',
-    avatarText: 'UK',
+    title: ' Xét nghiệm',
+    avatarText: '2',
     trendNumber: '6.2%',
     avatarColor: 'error',
     trend: <ChevronDown sx={{ color: 'error.main', fontWeight: 600 }} />
   },
   {
-    sales: '148k',
-    title: '$865k',
+    sales: '14',
+    title: 'Test Levodopa',
     trendDir: 'up',
-    avatarText: 'IN',
-    subtitle: 'India',
+    avatarText: '3',
+    subtitle: 'carbidopa-levodopa',
     trendNumber: '12.4%',
     avatarColor: 'warning',
     trend: <ChevronUp sx={{ color: 'success.main', fontWeight: 600 }} />
   },
   {
-    sales: '86k',
-    title: '$745k',
+    sales: '28',
+    title: 'Khám thần kinh',
     trendDir: 'down',
-    avatarText: 'JA',
-    subtitle: 'Japan',
+    avatarText: '4',
+    subtitle: 'Test vận động',
     trendNumber: '11.9%',
     avatarColor: 'secondary',
     trend: <ChevronDown sx={{ color: 'error.main', fontWeight: 600 }} />
   },
   {
-    sales: '42k',
-    title: '$45k',
+    sales: '2',
+    title: 'Kích thích não sâu',
     trendDir: 'up',
-    avatarText: 'KO',
-    subtitle: 'Korea',
+    avatarText: '5',
+    subtitle: '',
     trendNumber: '16.2%',
     avatarColor: 'error',
     trend: <ChevronUp sx={{ color: 'success.main', fontWeight: 600 }} />
@@ -69,7 +69,7 @@ const SalesByCountries = () => {
   return (
     <Card>
       <CardHeader
-        title='Sales by Countries'
+        title='Khám bệnh'
         titleTypographyProps={{ sx: { lineHeight: '1.2 !important', letterSpacing: '0.31px !important' } }}
         action={
           <IconButton size='small' aria-label='settings' className='card-more-options' sx={{ color: 'text.secondary' }}>
@@ -137,7 +137,7 @@ const SalesByCountries = () => {
                     {item.sales}
                   </Typography>
                   <Typography variant='caption' sx={{ lineHeight: 1.5 }}>
-                    Sales
+                    Bệnh nhân
                   </Typography>
                 </Box>
               </Box>

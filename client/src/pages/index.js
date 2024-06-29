@@ -113,32 +113,32 @@ const Dashboard = () => {
             <Grid container spacing={6}>
               <Grid item xs={6}>
                 <CardStatisticsVerticalComponent
-                  stats='$25.6k'
+                  stats='25'
                   icon={<Poll />}
                   color='success'
                   trendNumber='+42%'
-                  title='Total Profit'
-                  subtitle='Weekly Profit'
+                  title='Ngoại trú'
+                  subtitle='Bệnh nhân mới trong tuần'
                 />
               </Grid>
               <Grid item xs={6}>
                 <CardStatisticsVerticalComponent
-                  stats='$78'
-                  title='Refunds'
+                  stats='15.500.000'
+                  title='Vật tư tiêu hao'
                   trend='negative'
                   color='secondary'
                   trendNumber='-15%'
-                  subtitle='Past Month'
+                  subtitle='Tuần trước'
                   icon={<CurrencyUsd />}
                 />
               </Grid>
               <Grid item xs={6}>
                 <CardStatisticsVerticalComponent
-                  stats='862'
+                  stats='62'
                   trend='negative'
                   trendNumber='-18%'
-                  title='New Project'
-                  subtitle='Yearly Project'
+                  title='Tiếp nhận'
+                  subtitle='Lịch đặt khám tuần sau'
                   icon={<BriefcaseVariantOutline />}
                 />
               </Grid>
@@ -148,8 +148,8 @@ const Dashboard = () => {
                   color='warning'
                   trend='negative'
                   trendNumber='-18%'
-                  subtitle='Last Week'
-                  title='Sales Queries'
+                  subtitle='Số bệnh án tuần trước'
+                  title='Khám lâm sàng'
                   icon={<HelpCircleOutline />}
                 />
               </Grid>

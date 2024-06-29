@@ -41,7 +41,7 @@ const DashboardTable = ({rows, refetch, setRefetch}) => {
         <Table sx={{ minWidth: 800 }} aria-label='table in dashboard'>
           <TableHead>
             <TableRow>
-              <TableCell>Id</TableCell>
+              <TableCell>Mã Id bệnh nhân</TableCell>
               <TableCell>Tên bệnh nhân</TableCell>
               <TableCell>Ngày khám gần nhất</TableCell>
               <TableCell>Ngày tái khám</TableCell>
@@ -83,7 +83,7 @@ const DashboardTable = ({rows, refetch, setRefetch}) => {
       </TableContainer>
     </Card>
     <Dialog onClose={handleCloseDialog} open={openDialog} sx={{ ".css-12tnra4-MuiPaper-root-MuiDialog-paper": {
-      maxWidth: "800px !important"
+      maxWidth: "1200px !important"
     } }}>
       <PatientDetailPopUp detail={patientDetail} refetch={refetch} onCloseDialog={handleCloseDialog} setRefetch={setRefetch}/>
     </Dialog>

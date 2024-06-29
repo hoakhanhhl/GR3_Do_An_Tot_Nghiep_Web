@@ -11,41 +11,41 @@ const depositData = [
   {
     logoWidth: 28,
     logoHeight: 29,
-    amount: '+$4,650',
-    subtitle: 'Sell UI Kit',
-    title: 'Gumroad Account',
+    amount: 'Kho C1-102',
+    subtitle: 'Madopar, Sinemet, Kinson, Stalevo',
+    title: 'Liệu pháp thay thế dopamine',
     logo: '/images/logos/gumroad.png'
   },
   {
     logoWidth: 38,
     logoHeight: 38,
-    amount: '+$92,705',
-    title: 'Mastercard',
-    subtitle: 'Wallet deposit',
+    amount: 'Kho C1-102',
+    title: 'Chất chủ vận dopamine',
+    subtitle: 'Bromocriptine, pergolide, pramipexole',
     logo: '/images/logos/mastercard-label.png'
   },
   {
     logoWidth: 20,
     logoHeight: 28,
-    amount: '+$957',
-    title: 'Stripe Account',
-    subtitle: 'iOS Application',
+    amount: 'Kho C1-103',
+    title: 'Thuốc ức chế men chuyển COMT',
+    subtitle: 'Tolcapone, entacapone, levodopa',
     logo: '/images/logos/stripe.png'
   },
   {
     logoWidth: 34,
     logoHeight: 32,
-    amount: '+$6,837',
-    title: 'American Bank',
-    subtitle: 'Bank Transfer',
+    amount: 'Kho C1-103',
+    title: 'Chất ức chế MAO-B',
+    subtitle: 'selegiline, rasagiline',
     logo: '/images/logos/american-bank.png'
   },
   {
     logoWidth: 33,
     logoHeight: 22,
-    amount: '+$446',
-    title: 'Bank Account',
-    subtitle: 'Wallet deposit',
+    amount: 'Kho C1-103',
+    title: 'Thuốc kháng cholinergic',
+    subtitle: 'benztropine, biperiden, trihexyphenidyl',
     logo: '/images/logos/citi-bank.png'
   }
 ]
@@ -54,42 +54,42 @@ const withdrawData = [
   {
     logoWidth: 29,
     logoHeight: 30,
-    amount: '-$145',
-    title: 'Google Adsense',
-    subtitle: 'Paypal deposit',
+    amount: '880',
+    title: 'Bộ kim cánh bướm',
+    subtitle: 'N03.02.020',
     logo: '/images/logos/google.png'
   },
   {
     logoWidth: 34,
     logoHeight: 34,
-    amount: '-$1870',
-    title: 'Github Enterprise',
+    amount: '572',
+    title: 'Bơm kim TANAPHAR có kim 1ml/cc',
     logo: '/images/logos/github.png',
-    subtitle: 'Security & compliance'
+    subtitle: 'N03.01.070'
   },
   {
     logoWidth: 30,
     logoHeight: 30,
-    amount: '-$450',
-    title: 'Upgrade Slack Plan',
-    subtitle: 'Debit card deposit',
+    amount: '6300',
+    title: 'Kim luồn tĩnh mạch',
+    subtitle: 'N03.02.080',
     logo: '/images/logos/slack.png'
   },
   {
     logoWidth: 30,
     logoHeight: 30,
-    amount: '-$540',
-    title: 'Digital Ocean',
-    subtitle: 'Cloud Hosting',
+    amount: '5',
+    title: 'Bầu khí dung',
+    subtitle: 'N04.03.090',
     logo: '/images/logos/digital-ocean.png'
   },
   {
     logoWidth: 36,
     logoHeight: 21,
-    amount: '-$21',
-    title: 'AWS Account',
+    amount: '21',
+    title: 'Bộ gây tê ngoài màng cứng',
     logo: '/images/logos/aws.png',
-    subtitle: 'Choosing a Cloud Platform'
+    subtitle: 'N03.03.070'
   }
 ]
 
@@ -109,9 +109,9 @@ const DepositWithdraw = () => {
     <Card sx={{ display: 'flex', justifyContent: 'space-between', flexDirection: ['column', 'column', 'row'] }}>
       <Box sx={{ width: '100%' }}>
         <CardHeader
-          title='Deposit'
+          title='Quản lý dược'
           sx={{ pt: 5.5, alignItems: 'center', '& .MuiCardHeader-action': { mt: 0.6 } }}
-          action={<Typography variant='caption'>View All</Typography>}
+          action={<Typography variant='caption'>Xem tất cả</Typography>}
           titleTypographyProps={{
             variant: 'h6',
             sx: { lineHeight: '1.6 !important', letterSpacing: '0.15px !important' }
@@ -155,9 +155,9 @@ const DepositWithdraw = () => {
 
       <Box sx={{ width: '100%' }}>
         <CardHeader
-          title='Withdraw'
+          title='Thống kê vật tư theo danh mục'
           sx={{ pt: 5.5, alignItems: 'center', '& .MuiCardHeader-action': { mt: 0.6 } }}
-          action={<Typography variant='caption'>View All</Typography>}
+          action={<Typography variant='caption'>Xem tất cả</Typography>}
           titleTypographyProps={{
             variant: 'h6',
             sx: { lineHeight: '1.6 !important', letterSpacing: '0.15px !important' }
