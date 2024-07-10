@@ -8,13 +8,8 @@ const crypto = require('crypto');
 app.use(cors())
 const bodyParser = require('body-parser');
 app.use(bodyParser.json()); 
-// app.use(express.json())
-// import patientData.js - định nghĩa dữ liệu bệnh nhân để chèn dữ liệu
 const patientData = require('./models/patientData')
 
-//Thông tin thuật toán kalman
-const KalmanFilter = require('kalmanjs');
-const kFilter = new KalmanFilter()
 
 // Thông tin kết nối mqtt
 const mqtt = require('mqtt')
@@ -57,7 +52,7 @@ clientMqtt.on('connect', () => {
 // Thiết lập kết nối đến cơ sở dữ liệu MongoDB dùng Mongoose và URL
 const URL = `mongodb+srv://hoaltk:12345678%21
 %40%23@atlascluster.lh5zibj.mongodb.net/?retryWrites=true&w=majority&appName=AtlasCluster`
-// Tạo một hàm async
+// Tạo một thông số của bệnh nhân trong bảng patientData
 async function InsertPatientData (data) {
   await patientData.create(data)
 }
@@ -114,7 +109,6 @@ clientMqtt.on('message', (topic, payload) => {
       heartRate: heartRate,
       uploadTime: new Date()
       }).then((res) => console.log("create data \n"))
-  // khi dữ liệu được chèn thành công thông báo "create data"    
     }
   })
   
@@ -123,19 +117,8 @@ app.listen(port,async () => {
   console.log(`Example app listening on port ${port}`)
 })
 
-// app.get('/', (req, res) => {
-//     res.send("hello world")
-// })
-// app.get('/getpPatientData', (req, res) => {
-//     patientData.find()
-//     .then(patientData => res.json(patientData))
-//     .catch(err => res.json(err))
-// })
-
-// patient service
+// Hàm lấy danh sách bệnh nhân
 async function getPatientList(page = 1, perPage = 15) {
-  // Extract page and perPage from request parameters (assuming query string)
-
   try {
     // Calculate skip value for pagination
     const skip = (page - 1) * perPage;
@@ -154,6 +137,7 @@ async function getPatientList(page = 1, perPage = 15) {
   }
 }
 
+//Tạo random id bệnh nhân
 function generateRandomString(length) {
   return crypto.randomBytes(length)
                .toString('base64')
@@ -161,7 +145,7 @@ function generateRandomString(length) {
                .replace(/[^a-zA-Z0-9]/g, ''); // Loại bỏ ký tự không mong muốn
 }
 
-
+//Tạo thông tin bệnh nhân
 async function createPatient(data){
     try {
       console.log(data.data)
@@ -176,6 +160,7 @@ async function createPatient(data){
     }
 }
 
+//Update thông tin bệnh nhân
 async function updatePatient(data){
   try {
     const update = data.data
@@ -188,6 +173,7 @@ async function updatePatient(data){
   }
 }
 
+//Lấy thông số từ thiết bị của bệnh nhân dựa trên id, time
 async function getPatientData(id, startTime, endTime){
   console.log(id)
   try {
@@ -201,11 +187,10 @@ async function getPatientData(id, startTime, endTime){
 }
 
 
-// crud patient
+// Thêm bệnh nhân
 app.post('/patient', async (req, res) => {
   try {
-    const patient = req.body; // Assuming data is sent in the request body
-    // Validate patient data (optional but recommended)
+    const patient = req.body; 
 
     const createdPatientId = await createPatient(patient);
 
@@ -220,11 +205,10 @@ app.post('/patient', async (req, res) => {
   }
 });
 
+//Sửa, update thông tin bệnh nhân
 app.put('/patient', async (req, res) => {
   try {
-    const patient = req.body; // Assuming data is sent in the request body
-    // Validate patient data (optional but recommended)
-
+    const patient = req.body; 
     const update = await updatePatient(patient);
 
     if (update) {
@@ -238,14 +222,13 @@ app.put('/patient', async (req, res) => {
   }
 });
 
+//API lấy danh sách bệnh nhân
 app.get('/patient', async (req, res) => {
   try {
-    const body = req.body; // Assuming data is sent in the request body
-    const page = patient.page;
-    const perPage = patient.perPage;
-    // Validate patient data (optional but recommended)
+    const page = parseInt(req.query.page) || 1; // Lấy giá trị số trang từ query parameter, mặc định là 1 nếu không có
+    const perPage = parseInt(req.query.perPage) || 15; // Lấy giá trị số bệnh nhân trên 1 trang từ query parameter, mặc định là 15 nếu không có
 
-    const {patients, totalDocuments} = await getPatientList(page, perPage)
+    const { patients, totalDocuments } = await getPatientList(page, perPage);
 
     if (patients) {
       res.status(201).json({ total: totalDocuments, data: patients });
@@ -257,6 +240,8 @@ app.get('/patient', async (req, res) => {
     res.status(500).json({ message: 'Internal server error' });
   }
 });
+
+//Hàm lấy thời gian, múi giờ VN -7
 function adjustTime(date){
   if (date.getHours() < 7) {
     date.setDate(date.getDate() - 1);
@@ -267,12 +252,12 @@ function adjustTime(date){
   return date;
 }
 
+//API lấy thông tin từ thiết bị của bệnh nhân
 app.get('/patientData/:id', async (req, res) => {
   const { id } = req.params;
-const { startTime, endTime } = req.query;
+  const { startTime, endTime } = req.query;
 
 try {
-  // Validate and parse startTime and endTime
   const currentDate = new Date();
   // Giảm đi một tuần
   const oneWeekAgo = new Date(currentDate);

@@ -19,7 +19,7 @@ import axios from 'axios'
 import dayjs from 'dayjs'
 import toast from 'react-hot-toast'
 
-const FormLayoutsIcons = props => {
+const FormCreatePatient = props => {
   const [data, setData] = useState({
     name: '',
     age: 1,
@@ -179,4 +179,4 @@ const FormLayoutsIcons = props => {
   )
 }
 
-export default FormLayoutsIcons
+export default FormCreatePatient

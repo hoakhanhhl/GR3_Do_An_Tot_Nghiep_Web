@@ -23,7 +23,7 @@ import DepositWithdraw from 'src/views/dashboard/DepositWithdraw'
 import SalesByCountries from 'src/views/dashboard/SalesByCountries'
 import { Button, Dialog } from '@mui/material'
 import { useEffect, useState } from 'react'
-import FormLayoutsIcons from 'src/views/form-layouts/FormLayoutsIcons'
+import FormCreatePatient from 'src/views/form-layouts/FormCreatePatient'
 
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
@@ -171,7 +171,7 @@ const Dashboard = () => {
           </Grid>
         </Grid>
         <Dialog onClose={handleCloseDialog} open={openDialog}>
-          <FormLayoutsIcons onCloseDialog={handleCloseDialog} setRefetch={setRefetch} refetch={refetch}/>
+          <FormCreatePatient onCloseDialog={handleCloseDialog} setRefetch={setRefetch} refetch={refetch}/>
         </Dialog>
         <Toaster
           position='bottom-right'
